@@ -1,5 +1,7 @@
 let user = 0;
 let computer = 0;
+const options = document.querySelector(".options");
+options.addEventListener("click",(e) => game(e.target.textContent));
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random()*100);
@@ -14,70 +16,96 @@ function getComputerChoice() {
     }
     return choice;
 }
+let resultDiv = document.querySelector(".results");
 function playRound(playerSelection,computerSelection = getComputerChoice() ) {
     let player = playerSelection;
-    let comp = getComputerChoice()
+    let comp = getComputerChoice();
+    console.log(player);
+    console.log(comp);
     if (player == comp) {
         return "It's a draw!";
+        console.log(matchResult);
     }
     else if (player == "rock") {
         if (comp=="paper") {
             ++computer;
             return "You lose! Paper beats Rock";
+            console.log(matchResult);
         }
         else {
             ++user;
             return "You win! Rock beats Scissors";
+            console.log(matchResult);
         }
     }
     else if (player=="paper") {
         if (comp=="rock") {
             ++user;
             return "You win! Paper beats Rock";
+            console.log(matchResult);
         }
         else {
             ++computer;
             return "You lose! Scissors beat Paper";
+            console.log(matchResult);
         }
     }
     else {
         if (comp="rock") {
             ++computer;
             return "You lose! Rock beats Scissors";
+            console.log(matchResult);
         }
         else {
             ++user;
             return "You win! Scissors beat Paper";
+            console.log(matchResult);
         }
     }
 }
-function game() {
-    do {
-        let userchoice = prompt("Rock, Paper or Scissors?");
-        if (userchoice == null) {
-            user = 0;
-            computer = 0;
-            return alert("You quited the game");
-        }
-        userchoice = userchoice.toLowerCase();
-        if (userchoice != "rock" && userchoice != "paper" && userchoice != "scissors") {
-            user = 0;
-            computer = 0;
-            return alert("Please enter a valid choice: Rock, Paper or Scissors");
-        }
-        let result = playRound(userchoice);
-        alert(result+". The score is : User "+user+" - "+computer+" Computer");
-    } while (user != 3 && computer != 3);
-    if (user == 3) {
-        alert("You won the game! the final score is: User "+user+" - "+computer+" Computer");
-        user = 0;
-        computer = 0;
+let textClass;
+function game(userchoice) {
+    userchoice = userchoice.toLowerCase();
+    let result = playRound(userchoice);
+    const userScore = document.querySelector("#userScore");
+    const computerScore = document.querySelector("#computerScore");
+    const userDiv = document.querySelector("#user");
+    const compDiv = document.querySelector("#computer");
+    const finalScore = document.querySelector("#finalScore");
+    const matchResult = document.querySelector("#matchResult");
+    const restart = document.querySelector("#restart");
+    matchResult.classList.remove(textClass);
+    matchResult.textContent = result;
+    finalScore.textContent = "";
+    restart.textContent = "";
+    if (result.includes("win")) {
+        matchResult.classList.add("win")
+        textClass = "win"
     }
-    else if (computer == 3) {
-        alert("You lost the game. the final score is: User "+user+" - "+computer+" Computer");
+    else if (result.includes("lose")) {
+        matchResult.classList.add("lose")
+        textClass = "lose"
+    }
+    else {
+        matchResult.classList.add("draw")
+        textClass = "draw"
+    }
+    userDiv.textContent = "User";
+    compDiv.textContent = "Computer";
+    userScore.textContent = user;
+    computerScore.textContent = computer;
+    if (user == 5) {
+        finalScore.textContent = "You won the game!";
+        resultDiv.appendChild(finalScore);
         user = 0;
         computer = 0;
+        restart.textContent = "Select an option to play again"
+    }
+    else if (computer == 5) {
+        finalScore.textContent = "You lost the game.";
+        resultDiv.appendChild(finalScore);
+        user = 0;
+        computer = 0;
+        restart.textContent = "Select an option to play again"
     }
 }
-const play = document.getElementById("play");
-play.addEventListener("click",game,false);

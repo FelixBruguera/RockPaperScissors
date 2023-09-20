@@ -5,43 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="script.js" defer></script>
-    <style>
-        body {
-            background-color: whitesmoke;
-        }
-        h1 {
-            text-align: center;
-            text-decoration: 3px solid blue underline;
-            font-family:'Trebuchet MS';
-        }
-        .button {
-            border: 2px solid blue;
-            height: 40px;
-            width: 100px;
-            background-color: whitesmoke;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding: 200px;
-        }
-        .again {
-            background-color: whitesmoke;
-            color: whitesmoke;
-            border: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="body">
     <div class="header">
-    <h1>Rock Paper Scissors</h1>
-    <button class="button" id="play">Play</button>
-    <button class="again" id="restart">Restart</button>
+        <div class="head">
+            <h1>Rock Paper Scissors</h1>
+        </div>
+        <div class="options">
+            <button class="button" id="rock">Rock</button>
+            <button class="button" id="paper">Paper</button> 
+            <button class="button" id="scissors">Scissors</button>
+        </div>
+        <div class="results">
+            <div class="scoreDiv">
+                <h3 id="user"></h3>
+                <h2 id="userScore"></h2>
+                <h3 id="computer"></h3>
+                <h2 id="computerScore"></h2>
+            </div>
+            <p id="matchResult"></p>
+            <h3 id="finalScore"></h3>
+        </div>
     </div>
+    <p id="restart"></p>
 </body>
 </html>
